@@ -15,7 +15,7 @@ echo "PLUGIN_PATH:" $PLUGIN_PATH
 # exit;
 
 #define array of plugin slugs to install
-PLUGINS=(svg-support wordpress-importer wpsite-show-ids woocommerce query-monitor)
+PLUGINS=( wordpress-importer wpsite-show-ids query-monitor dp-toolbar-plus)
 
 #loop through array, install and activate the plugin, ${PLUGINS[@]}
 for PLUGIN in "${PLUGINS[@]}"; do
@@ -27,16 +27,3 @@ for PLUGIN in "${PLUGINS[@]}"; do
         wp plugin install $PLUGIN --activate --allow-root
     fi
 done
-
-wp theme install blocksy --activate --allow-root
-
-# import sample products.
-wp import "${PLUGIN_PATH}/woocommerce/sample-data/sample_products.xml" --authors=create
-
-# WooCommerce: install pages. 
-wp wc tool run install_pages --user=1
-
-#Fix permissions in case you ran as root
-# sudo chown -R www-data:www-data $WPPATH
-# sudo find $WPPATH -type f -exec chmod 644 {} +
-# sudo find $WPPATH -type d -exec chmod 755 {} +
